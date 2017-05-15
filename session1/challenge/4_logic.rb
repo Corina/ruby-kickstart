@@ -11,11 +11,11 @@
 
 def grade(num_books, reads_books)
   case
-  when num_books < 10
-    reads_books ? "C" : "D"
-  when num_books >= 10 && num_books <= 20
-    reads_books ? "B" : "C"
-  else
-    reads_books ? "A" : "B"
-    end
+    when num_books < 10
+      reads_books ? "C" : "D"
+    when num_books >= 10 && num_books <= 20
+      reads_books ? "B" : "C"
+    else
+      reads_books ? "A" : "B"
+  end
 end
