@@ -8,3 +8,12 @@
 # staircase 4  # => {1 => [], 3 => [2]}
 # staircase 5  # => {1 => [], 3 => [2], 5 =>[2, 4]}
 
+def staircase(n)
+  hash1 = {}
+  i = 0
+  while i <= n
+    hash1[i] = (2..i-1).step(2).to_a if i.odd?
+    i += 1
+  end
+  hash1
+end
