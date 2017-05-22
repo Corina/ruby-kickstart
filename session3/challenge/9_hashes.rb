@@ -29,4 +29,16 @@
 # shared [1,2,3], [3,2,1]            # => [{1=>[true, true], 2=>[true, true], 3=>[true, true]}, [1, 2, 3]]
 
 def shared(a, b)
+  merged = []
+  hash = Hash[a.collect { |x| [x, [true]] }]
+  hash.each do |key, value|
+    b.include?(key) ? hash[key] << true : hash[key] << nil
+  end
+  b.each do |x|
+    hash[x] = [nil, true] if !hash.has_key?(x)
+  end
+  hash.each do |key, value|
+    merged << key if value == [true, true]
+  end
+  return hash, merged.sort!
 end

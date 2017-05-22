@@ -28,6 +28,29 @@
 #
 # create it from scratch :)
 
+def add_to_name(str, current_place)
+  str + "/" + current_place
+end
 
-def pathify
+
+
+def reach_array(hash, result, str)
+  hash.each do |key, value|
+    str_local = add_to_name(str, key.to_s)
+    if value.is_a? Array
+      value.each do |x|
+        result << add_to_name(str_local, x.to_s)
+      end
+    else
+      reach_array(value, result, str_local)
+    end
+  end
+  result.sort!
+end
+
+def pathify(hash)
+  result = []
+  str = ""
+  reach_array(hash, result, str)
+
 end

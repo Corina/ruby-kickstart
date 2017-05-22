@@ -17,3 +17,22 @@
 # match_maker true,  true,  true, true, nil     # => [false, true]
 # match_maker true,  true,  true, 0, nil        # => [false, true]
 
+def match_maker(*n)
+  arr = n.to_a
+  switch = arr[0]
+  arr.delete_at(0)
+  arr_pairs = arr.each_slice(2).to_a
+  result = []
+
+  if switch == true
+    arr_pairs.each do |x, y|
+      !!x != !!y ? result << true : result << false
+    end
+  else
+    arr_pairs.each do |x, y|
+      !!x == !!y ? result << true : result << false
+    end
+  end
+
+ result
+end

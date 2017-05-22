@@ -52,5 +52,51 @@
 #   end
 # end       # => ["a", "m", "r", 1, 3, 4, 9, 2.5, 9.0, 25.8]
 
-def your_sort
+def split(array)
+  half_size = array.size / 2
+  left = array.slice(0, half_size)
+  right = array.slice(half_size, half_size + 1)
+  return left, right
+end
+
+def sort(array, &comparator)
+  if array.size <= 1
+    array
+  else
+    (left, right) = split(array)
+    sorted_left = sort(left, &comparator)
+    sorted_right = sort(right, &comparator)
+    sorted_array = merge(sorted_left, sorted_right, &comparator)
+  end
+end
+
+def merge(left, right, &comparator)
+  result = []
+  while left != [] && right != []
+    val = comparator.call(left.first, right.first)
+    if val == -1 || val == 0
+      result << left.first
+      left.delete_at(0)
+    else
+      result << right.first
+      right.delete_at(0)
+    end
+  end
+
+  while left != []
+    result << left.first
+    left.delete_at(0)
+  end
+  while right != []
+    result << right.first
+    right.delete_at(0)
+  end
+
+  result
+end
+
+
+def your_sort(array, &comparator)
+  comparator ||= Proc.new { |a, b| a <=> b }
+  sort(array, &comparator)
 end
