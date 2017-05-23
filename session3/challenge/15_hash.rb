@@ -38,3 +38,34 @@
 # middle head                        # => 3
 # head = {:data => 6, :next => head}
 # middle head                        # => 3
+
+=begin
+def middle(head)
+  current_half = head
+  current = head
+  while current[:next] != nil
+    current = current[:next][:next]
+    current_half = current[:next]
+  end
+  current_half[:data]
+end
+=end
+
+
+def middle(head)
+  n = 1
+  i = 0
+  current = head
+  while current[:next] != nil
+    current = current[:next]
+    n += 1
+  end
+
+  current = head
+
+  while i < n / 2
+    current = current[:next]
+    i += 1
+  end
+  current[:data]
+end

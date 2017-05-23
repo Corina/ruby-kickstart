@@ -21,11 +21,25 @@
 # problem_14 2,   5, 6, 45, 99, 13, 5, 6,  :problem => :same_ends    # => true
 # problem_14 3,   5, 6, 45, 99, 13, 5, 6,  :problem => :same_ends    # => false
 
-def problem_14
+def problem_14(*n)
+  problem = n.pop[:problem] if n.last.is_a? Hash
+  problem ||= :count_clumps
+  return count_clumps(*n) if problem == :count_clumps
+  return same_ends(*n) if problem == :same_ends
+
 end
 
-def same_ends
+def count_clumps(*array)
+  clumps = 0
+  array.map.with_index do |x, i|
+    if (array[i - 1] == array[i] ) && (array[i] != array[i + 1])
+      clumps += 1
+    end
+  end
+  return clumps
 end
 
-def count_clumps
+
+def same_ends(n, *array)
+  array.slice(0, n) == array.slice(- n, n)
 end
